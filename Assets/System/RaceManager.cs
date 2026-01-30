@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using TMPro;
 using UnityEngine;
 
 public class RaceManager : MonoBehaviour
 {
     public static RaceManager Instance;
+
+    [Header("UI References")]
+    [SerializeField] private TextMeshProUGUI currentLapTimeText;
+    [SerializeField] private TextMeshProUGUI overallLapTimeText;
+    [SerializeField] private TextMeshProUGUI bestLapTimeText;
+    [SerializeField] private TextMeshProUGUI lapText;
 
     [Header("Race Settings")]
     [SerializeField] private Checkpoint[] checkpoints;
@@ -17,6 +23,11 @@ public class RaceManager : MonoBehaviour
 
     private bool raceStarted = false;
     private bool raceFinished = false;
+
+    [Header("Lap Timer")]
+    private float currentLapTime = 0f;
+    private float bestLapTime = Mathf.Infinity;
+    private float overallLapTime = 0f;
 
     #region Unity Functions
     private void Awake()
@@ -30,6 +41,16 @@ public class RaceManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Update()
+    {
+        if (raceStarted)
+        {
+            UpdateTimers();
+        }
+        UpdateUI();
+    }
+
     #endregion
 
     #region CheckpointManagement
@@ -78,10 +99,21 @@ public class RaceManager : MonoBehaviour
     {
         currentLap++;
 
+        if (currentLapTime < bestLapTime)
+        {
+            bestLapTime = currentLapTime;
+        }
+
         if (currentLap > totalLaps)
         {
             EndRace();
         }
+        else
+        {
+            currentLapTime = 0f;
+            lastCheckpointIndex = isCircuit ? 0 : -1;
+        }
+
     }
 
     private void EndRace()
@@ -89,7 +121,34 @@ public class RaceManager : MonoBehaviour
         raceFinished = true;
         raceStarted = false;
     }
+    private void UpdateTimers()
+    {
+        currentLapTime += Time.deltaTime;
+        overallLapTime += Time.deltaTime;
+
+    }
+
+    private void UpdateUI()
+    {
+        currentLapTimeText.text = FormatTime(currentLapTime);
+        overallLapTimeText.text = FormatTime(overallLapTime);
+        lapText.text = "Lap : " + currentLap + "/" + totalLaps;
+        bestLapTimeText.text = FormatTime(bestLapTime);
+    }
+
     #endregion
 
+    #region Utility Functions
 
+    private string FormatTime(float time)
+    {
+        if (float.IsInfinity(time) || time < 0) return "--:--";
+        
+        int minutes = (int)time / 60;
+        float seconds = time % 60;f
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+
+
+    }
+    #endregion
 }
