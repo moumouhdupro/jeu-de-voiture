@@ -32,7 +32,7 @@ public class RaceManager : MonoBehaviour
     #region Unity Functions
     private void Awake()
     {
-        if (Instance == true)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -61,7 +61,7 @@ public class RaceManager : MonoBehaviour
 
         if (checkpointIndex == lastCheckpointIndex + 1)
         {
-            UpdateCheckpoint(checkpointIndex);
+            //UpdateCheckpoint();
         }
     }
 
@@ -78,7 +78,6 @@ public class RaceManager : MonoBehaviour
                 OnLapFinish();
             }
         }
-
         else if (!isCircuit && checkpointIndex == checkpoints.Length - 1)
         {
             OnLapFinish();
@@ -88,13 +87,7 @@ public class RaceManager : MonoBehaviour
     }
     #endregion
 
-    #region StartRace
-    private void StartRace()
-    {
-        raceStarted = true;
-        raceFinished = false;
-    }
-
+    #region Race Managment
     private void OnLapFinish()
     {
         currentLap++;
@@ -113,8 +106,14 @@ public class RaceManager : MonoBehaviour
             currentLapTime = 0f;
             lastCheckpointIndex = isCircuit ? 0 : -1;
         }
-
     }
+    private void StartRace()
+    {
+        raceStarted = true;
+        raceFinished = false;
+    }
+
+
 
     private void EndRace()
     {
@@ -132,7 +131,7 @@ public class RaceManager : MonoBehaviour
     {
         currentLapTimeText.text = FormatTime(currentLapTime);
         overallLapTimeText.text = FormatTime(overallLapTime);
-        lapText.text = "Lap : " + currentLap + "/" + totalLaps;
+        lapText.text = "Tour : " + currentLap + "/" + totalLaps;
         bestLapTimeText.text = FormatTime(bestLapTime);
     }
 
@@ -145,7 +144,7 @@ public class RaceManager : MonoBehaviour
         if (float.IsInfinity(time) || time < 0) return "--:--";
         
         int minutes = (int)time / 60;
-        float seconds = time % 60;f
+        float seconds = time % 60;
         return string.Format("{0:00}:{1:00}", minutes, seconds);
 
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-
 public class Checkpoint : MonoBehaviour
 {
     public int checkpointIndex;
@@ -14,5 +13,6 @@ public class Checkpoint : MonoBehaviour
         {
             RaceManager.Instance.CheckPointReached(checkpointIndex);
         }
+        
     }
 }
