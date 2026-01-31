@@ -346,6 +346,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4072638209918098687, guid: 9c8b1a896405b584e99933fce51d5688, type: 3}
+      propertyPath: m_text
+      value: "D\xE9marrer - Alt (maintenir)\nAugmenter rapport - Shift\nBaisser rapport
+        - Ctrl\nAcc\xE9lerer - W\nFreiner - S\nFrein \xE0 main - Espace\nClignotants
+        - Q / E\nWarning - H\nPetit phare - L\nGrand phare - L (maintenir) \nChanger
+        de cam\xE9ra - V\nRed\xE9marrer - R"
+      objectReference: {fileID: 0}
     - target: {fileID: 4724626243938247754, guid: 9c8b1a896405b584e99933fce51d5688, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14221954
