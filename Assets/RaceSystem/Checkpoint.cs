@@ -8,11 +8,19 @@ public class Checkpoint : MonoBehaviour
 {
     public int checkpointIndex;
 
+    private bool triggered = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            RaceManager.Instance.CheckpointReached(checkpointIndex);
-        }       
+        if (triggered) return;
+
+        Rigidbody rb = other.attachedRigidbody;
+        if (rb == null) return;
+
+        if (!rb.CompareTag("Player")) return;
+
+        triggered = true;
+        RaceManager.Instance.CheckpointReached(checkpointIndex);
     }
+    
 }

@@ -12,6 +12,7 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bestLapTimeText;
     [SerializeField] private TextMeshProUGUI overallRaceTimeText;
     [SerializeField] private TextMeshProUGUI lapText;
+    [SerializeField] private TextMeshProUGUI missedText;
 
     [Header("Race Settings")]
     [SerializeField] private Checkpoint[] checkpoints;
@@ -24,6 +25,8 @@ public class RaceManager : MonoBehaviour
 
     private bool raceStarted = false;
     private bool raceFinished = false;
+
+    private bool missed = false;
 
     [Header("Lap Timer")]
     private float currentLapTime = 0f;
@@ -63,8 +66,27 @@ public class RaceManager : MonoBehaviour
 
         if(checkpointIndex == lastCheckpointIndex + 1)
         {
-            //UpdateCheckpoint();
+            UpdateCheckpoint(checkpointIndex);
+
+            HideCheckpointMissedText();
         }
+        else
+        {
+            bool validLapFinish = isCircuit && raceStarted && lastCheckpointIndex == checkpoints.Length - 1 && checkpointIndex == 0;
+
+            if (validLapFinish)
+            {
+                HideCheckpointMissedText();
+                UpdateCheckpoint(checkpointIndex);
+
+            }
+            else
+            {
+
+                ShowCheckpointMissedText();
+            }
+        }
+
     }
     
     private void UpdateCheckpoint(int checkpointIndex)
@@ -96,7 +118,6 @@ public class RaceManager : MonoBehaviour
     private void OnLapFinish()
     {
         currentLap++;
-
 
         if (currentLapTime < bestLapTime)
         {
@@ -139,10 +160,37 @@ public class RaceManager : MonoBehaviour
         overallRaceTimeText.text = FormatTime(overralRaceTime);
         lapText.text = "Tour: " + currentLap + "/" + totalLaps;
         bestLapTimeText.text = FormatTime(bestLapTime);
+
+        UpdateCheckpointMissedText();
     }
 
+    private void UpdateCheckpointMissedText()
+    {
+        if (missed)
+        {
+            float alpha = Mathf.PingPong(Time.time * 2, 1);
+            Color newColor = missedText.color;
+            newColor.a = alpha;
+            missedText.color = newColor;
+        }
+    }
+    private void ShowCheckpointMissedText()
+    {
+        if (!missed)
+        {
+            missedText.gameObject.SetActive(true);
+            missed = true;
+        }
+    }
 
-
+    private void HideCheckpointMissedText()
+    {
+        if (missed)
+        {
+            missedText.gameObject.SetActive(false);
+            missed = false;
+        }
+    }
 
     #endregion
 
