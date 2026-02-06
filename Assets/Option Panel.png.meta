@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a10efb687ad7b96409fca353e0bb4836
+guid: e48ad7f04d0141340a12a9462ab9ce91
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: oooo_0
+      name: Option Panel_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 800
-        height: 800
+        y: 1
+        width: 1704
+        height: 1219
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 396c3c1ef090bdd489b5343824fbd5a3
-      internalID: -1453434814
+      spriteID: c6cc9bfdf78d2d047af7c17719cd62a6
+      internalID: -590417775
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f87dd392bd487724e80f9f5d7ed93108
+    spriteID: 910618a884af39d408b09980378a81db
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      oooo_0: -1453434814
+      Option Panel_0: -590417775
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
